@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 400px;
+        }
+
+        button {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            font-size: 16px;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #0372DA;
+            border: 2px solid #0C457A;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0C457A;
+        }
+    </style>
+    <title>Monitoramento</title>
+</head>
+<body>
+    <div class="container">
+        <button id="abb">ABB</button>
+        <div class="box">
+            <button id="fronius-1">FRONIUS 1</button>
+            <button id="fronius-2">FRONIUS 2</button>
+            <button id="fronius-3">FRONIUS 3</button>
+        </div>
+        <button id="goodwe">GOODWE</button>
+        <div class="box">
+            <button id="outros-1">OUTROS 1</button>
+            <button id="outros-2">OUTROS 2</button>
+            <button id="outros-3">OUTROS 3</button>
+        </div>
+        <button id="garantia">GARANTIA</button>
+    </div>
+
+    <script>
+        const abb_btn = document.querySelector('#abb');
+        const fronius_btn_1 = document.querySelector('#fronius-1');
+        const fronius_btn_2 = document.querySelector('#fronius-2');
+        const fronius_btn_3 = document.querySelector('#fronius-3');
+        const goodwe_btn = document.querySelector('#goodwe');
+        const outros_btn_1 = document.querySelector('#outros-1');
+        const outros_btn_2 = document.querySelector('#outros-2');
+        const outros_btn_3 = document.querySelector('#outros-3');
+        const garantia_btn = document.querySelector('#garantia');
+
+
+        const abb_links = [
+            "https://www.auroravision.net/dashboard/#20791512",
+            "https://www.auroravision.net/dashboard/#23620818",
+            "https://www.auroravision.net/dashboard/#27066232",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=89632",
+            "https://www.auroravision.net/dashboard/#18801309",
+            "https://www.auroravision.net/dashboard/#23969445",
+            "https://www.auroravision.net/dashboard/#23621975",
+            "https://www.auroravision.net/dashboard/#20048448",
+            "https://www.auroravision.net/dashboard/#23031774",
+            "https://www.auroravision.net/dashboard/#23081523",
+            "https://www.auroravision.net/dashboard/#21178996",
+            "https://www.auroravision.net/dashboard/#27065955",
+            "https://www.auroravision.net/dashboard/#26124587"
+        ];
+
+        const fronius_links_1 = [
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=91107",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=ee182219-bc4d-4f2e-8c98-23f0e52f0a46",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=4823c4b6-8e9b-4de1-9f10-2cdb40958302",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=63900795-a027-4214-a8b3-6b8251824025",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=64ac0c4e-a568-42ff-9099-f6e7edf19195",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=089c0c6e-74fa-402e-8862-93ca99d73765",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=9baa3791-39b4-4e9a-a913-a20dc6ec8296",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=0937e132-a43d-4acf-b8d3-ca89c7ac47a5",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=f95955ff-fd63-4e2b-8f8d-2b81dadfd30e",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=28cbad19-78a4-4eaa-9a1c-3e543869ed90",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=113044",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=6c298541-f02d-4f48-9def-6f68f987c601",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=e9eaaf2a-c39f-4c8f-9dec-ca58c7240c43",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=673e741b-2119-41dc-8bb8-0505a1e8a8e5",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=ed90143c-7a57-4dc2-8a85-be8a9d8aa51d",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=2c646c4c-0f11-48de-91a4-aef62c9d1eeb",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=0abeccac-1a85-4531-9625-011078b43dc2",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=91052",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=c0708241-4973-4263-ab32-43745bafe722",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=895322fb-e49e-45ea-b7d3-c619ff6ba1b6",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=f20d2452-eb5f-47ab-aa65-1bf7d2ecd4cc"
+        ];
+
+        const fronius_links_2 = [
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=bd2eb547-609b-4a43-9014-9ce6fac964a7",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=0f595a1a-47a4-41e4-bc96-4dd174e5f2ca",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=bb8f1ea5-007d-4f62-99d8-757fbd387364",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=15075858-e58a-4a81-91e8-ad987cc5f76e",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=e6121966-7c8b-4838-bc89-c4607b29a71d",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=f7f7ec94-b203-4393-9fbc-b3fa47e035c3",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=12691c81-bbe6-4d65-bf96-6990cf68be37",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=153467a6-7691-4766-bf21-d65983864055",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=0c003fab-1263-4e09-85c6-fa031b579096",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=e0adbc6d-e9e6-4d91-b056-124e6ee65148",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=2f003d5d-ad3e-4ee9-9bde-45fc58652406",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=74a7f95d-ee81-4aba-a2fe-daaea55b83f7",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=0bf6de94-6d19-4fba-ac1e-4d4760094591",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=caa5c046-c7c4-4133-b333-c52707a98569",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=91118",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=3b439c23-94b4-4076-a4ec-3dd69a1ce34e",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=ecbd23bd-f04c-4c21-b551-52218182c446",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=3018519d-750c-4156-898f-bf27ab4eab56",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=121119",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=feb692ef-8869-40f7-8933-662bf0ff4474",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=7caa3212-632b-4271-a522-f345035fd58d",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=f1b8c377-40f8-463e-9501-faa5ba4e81aa"
+        ];
+
+        const fronius_links_3 = [
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=7af069a7-2761-426e-809e-8ad8cde04dca",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=2cbbfc23-cf49-49e9-a3f2-f9ad0f80d472",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=fcf4fde2-979f-46a5-9957-9ac652709b93",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=5775397d-76c1-4b70-bfbf-a297a618722c",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=6c113ad5-d876-4f3a-9de8-4762843e4e18",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=2367cd9a-7801-4c35-85d0-378beb52e28e",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=a13a9ba9-109e-4fae-b0a6-67de738e344e",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=465dc7f9-e4f4-4ec2-b4ec-6cbbd741dad8",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=98fbde68-4a92-4caa-9d47-124a8e23cc08",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=29f2c396-30ba-420b-a6db-cd6fb9df280b",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=ce6cbc14-d943-4653-9f94-687fad9abc53",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=ff053f11-7bb6-4f6c-a432-5330a4816898",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=03361ec0-8fa3-498d-85fa-15ca2d3e247a",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=836892a9-8289-498a-9a35-72fcea6c900f",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=f175a31c-0e94-4911-99eb-6cc02d45fb58",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=fa43491e-4e2c-4467-a1df-955c49b6f1e0",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=f1d3689e-e8ab-41e5-a994-f03bad7ec56b",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=8a1c55fa-f4b8-4f8a-90c4-179a76484406",
+            "https://www.solarweb.com/PvSystems/PvSystem?pvSystemId=40367ed6-cf84-40d5-8b46-f568ef68d2fd"
+        ];
+
+        const goodwe_links = [
+            "https://semsportal.com/powerstation/PowerStatusSnMin/e9a2a77b-c8ea-4615-a89a-f9e0398bd20c",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/9695dd31-9e89-48cf-818d-a3aa71d517a2",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/8dead7bc-d5e0-40e8-80c4-d981e4959d80",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/8217c3c1-3f56-40cb-81a3-b7db801f622b",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/a6b311a4-e226-4dbd-a557-a7349e48533f",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/ba5c81e3-8a45-43aa-aa26-3bf0381dae6a",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/86f236db-6817-4ddd-85f7-407c13515f30",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/1b92ec58-bef8-4b55-8e34-6f1899731bc1",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/31d7dadd-0280-4530-9158-da6d3d7f8031",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/9b810113-192b-4b85-b0d0-40c83d89ffe1",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/f476811e-ad3a-44ee-b511-36cfb0292f14",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/509bdc42-f3ed-4b69-bdab-b7f73af6cfc2",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/ded3653d-48a5-4cb5-8c2a-67edbf36f9fe",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/9dc72366-3608-4a1e-b4d0-0ce1d53206e5",
+            "https://semsportal.com/powerstation/PowerStatusSnMin/7ea53e2b-e605-49fb-be2c-ef20490f5295"
+        ];
+
+        const outros_links_1 = [
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=239895",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=292956",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=292955",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=309571",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=113006",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=350448",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=152560",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=154231",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=238175",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=208950",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=238179",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=212270",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=171791",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=114627",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=616378",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=113036",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=616709",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=113009",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=647304",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=309570"
+        ];
+
+        const outros_links_2 = [
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=758389",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=90030",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=734499",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=322573",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=633094",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=484746",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=441621",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=441606",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=748465",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=438051",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=91133",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=734031",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=612204",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=238176",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=389768",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=790833",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=801417",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=809778",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=825224",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=90054"
+        ];
+
+        const outros_links_3 = [
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=821639",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=221757",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=645643",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=843179",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=857807",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=609854",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=883160",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=884818",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=896545",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=919873",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=790362",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=949160",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=689895",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=942328",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=936659",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=927230",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=734499",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=952863",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=91042",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=810140",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=941019"
+        ];
+
+        const garantia_links = [
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=906100",
+            "https://app.solarz.com.br/integrador/usinas/geracao?id=112989"
+        ];
+
+        abb_btn.addEventListener('click', () => {
+            abb_links.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        fronius_btn_1.addEventListener('click', () => {
+            fronius_links_1.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        fronius_btn_2.addEventListener('click', () => {
+            fronius_links_2.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        fronius_btn_3.addEventListener('click', () => {
+            fronius_links_3.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        goodwe_btn.addEventListener('click', () => {
+            goodwe_links.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        outros_btn_1.addEventListener('click', () => {
+            outros_links_1.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        outros_btn_2.addEventListener('click', () => {
+            outros_links_2.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        outros_btn_3.addEventListener('click', () => {
+            outros_links_3.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+
+        garantia_btn.addEventListener('click', () => {
+            garantia_links.forEach(link => {
+                window.open(link, '_blank');
+            });
+        });
+    </script>
+</body>
+</html>
