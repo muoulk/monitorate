@@ -65,7 +65,6 @@
             <button id="outros-2">OUTROS 2</button>
             <button id="outros-3">OUTROS 3</button>
         </div>
-        <button id="garantia">GARANTIA</button>
     </div>
 
     <script>
@@ -77,7 +76,6 @@
         const outros_btn_1 = document.querySelector('#outros-1');
         const outros_btn_2 = document.querySelector('#outros-2');
         const outros_btn_3 = document.querySelector('#outros-3');
-        const garantia_btn = document.querySelector('#garantia');
 
 
         const abb_links = [
@@ -255,11 +253,6 @@
             "https://app.solarz.com.br/integrador/usinas/geracao?id=941019"
         ];
 
-        const garantia_links = [
-            "https://app.solarz.com.br/integrador/usinas/geracao?id=906100",
-            "https://app.solarz.com.br/integrador/usinas/geracao?id=112989"
-        ];
-
         abb_btn.addEventListener('click', () => {
             abb_links.forEach(link => {
                 window.open(link, '_blank');
@@ -304,12 +297,6 @@
 
         outros_btn_3.addEventListener('click', () => {
             outros_links_3.forEach(link => {
-                window.open(link, '_blank');
-            });
-        });
-
-        garantia_btn.addEventListener('click', () => {
-            garantia_links.forEach(link => {
                 window.open(link, '_blank');
             });
         });
